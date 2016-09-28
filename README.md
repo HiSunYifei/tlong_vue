@@ -1,7 +1,6 @@
-# tlongTv
+# tlongTv(www.tlong.tv)
 
 > A Vue.js project
-> www.tlong.tv(www.tlong.tv)
 
 ## Build Setup
 
