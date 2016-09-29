@@ -17,11 +17,4 @@
   html {
     font-size: 62.5%;
   }
-  body {
-    /*background-color: #222222;*/
-    /*background: url("./assets/imgs/backgroundImg.jpg") fixed;*/
-    background-size: 100%;
-    height: 100vh;
-    overflow: auto;
-  }
 </style>

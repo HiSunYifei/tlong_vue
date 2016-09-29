@@ -13,6 +13,9 @@ router.map({
   '/index': {
     component: require('./components/Index.vue')
   },
+  '/userInfo': {
+    component: require('./components/UserInfo.vue')
+  },
   '/^[1-9][0-9]*$': {
     component: require('./components/Index.vue')
   }

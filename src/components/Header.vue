@@ -35,13 +35,13 @@
                   <span class="input-group-addon" aria-describedby="sizing-addon1">密码</span>
                   <input type="password" class="form-control" placeholder="密码" v-model="login_password">
                 </div>
-                <button id="id-btn-login" class="btn btn-block btn-danger" @click="test">登录</button>
+                <button id="id-btn-login" class="btn btn-block btn-danger" @click="login">登录</button>
               </ul>
             </li>
             <li class="dropdown" v-show="!isLogin">
               <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
                  aria-haspopup="true" aria-expanded="false">注册</a>
-              <ul id="id-ul-register" class="dropdown-menu">
+              <ul id="id-ul-register" class="dropdown-menu" @keypress.enter="register(1)" >
                 <div class="input-group">
                   <span class="input-group-addon" aria-describedby="sizing-addon1">手机</span>
                   <input type="text" class="form-control" placeholder="手机号码" v-model="register_username">
@@ -50,7 +50,7 @@
                   <span class="input-group-addon" aria-describedby="sizing-addon1">密码</span>
                   <input type="password" class="form-control" placeholder="密码" v-model="register_password">
                 </div>
-                <button class="btn btn-block btn-success">注册</button>
+                <button class="btn btn-block btn-success" @click="register(1)">注册</button>
               </ul>
             </li>
         </ul>
@@ -79,17 +79,25 @@
       }
     },
     methods: {
-      test:function () {
-        console.log(this.isLogin);
+      login:function () {
+
+      },
+      register:function (x) {
+        console.log(x);
       }
     }
   }
 </script>
 
-<style lang="less" scoped>
-
+<style lang="less">
   .navbar {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 99;
     border-radius: 0;
+    margin: 0;
+    width: 100%;
   }
 
   .navbar-right a {
@@ -97,7 +105,7 @@
   }
 
   .dropdown-menu {
-    background-color: #222222;
+    background-color: transparent;
     min-width: 200px;
     box-shadow: none;
     -webkit-box-shadow: none;
