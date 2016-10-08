@@ -14,6 +14,7 @@
     "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
     "vue": "^1.0.21",
+    "vue-resource": "^1.0.3",
     "vue-router": "^0.7.13"
   },
   "devDependencies": {

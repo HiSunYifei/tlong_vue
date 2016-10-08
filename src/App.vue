@@ -5,7 +5,6 @@
 
 <script>
   import myHeader from './components/Header'
-
   export default {
     components: {
       myHeader

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import Router from 'vue-router'
 
+
 Vue.use(Router);
 
 //Router
@@ -10,14 +11,11 @@ router.map({
   '*': {
     component: require('./components/Index.vue')
   },
-  '/index': {
-    component: require('./components/Index.vue')
-  },
   '/userInfo': {
     component: require('./components/UserInfo.vue')
   },
   '/^[1-9][0-9]*$': {
-    component: require('./components/Index.vue')
+    component: require('./components/LiveRoom.vue')
   }
 });
 router.start(App, 'app');
