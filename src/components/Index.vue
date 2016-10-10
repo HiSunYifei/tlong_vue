@@ -92,7 +92,6 @@
           },
           success: function (result) {
             myVideo.src(result.user.rtmpPath);
-            console.log(myVideo);
             setTimeout(function () {
               myVideo.play();
             },100);

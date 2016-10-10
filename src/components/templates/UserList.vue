@@ -31,7 +31,7 @@
     },
     methods: {
       check: function (index) {
-        console.log(index);
+
 
       }
     }

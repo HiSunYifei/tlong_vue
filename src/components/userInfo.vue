@@ -3,8 +3,10 @@
     <div class="row">
       <div class="col-sm-2">
         <ul id="id-ul-left" class="nav nav-pills nav-stacked">
-          <li role="presentation" :class="{'active':state.left == 0}"><a href="javascript:;" @click="changeLeftState(0)">我的资料</a></li>
-          <li role="presentation" :class="{'active':state.left == 1}"><a href="javascript:;" @click="changeLeftState(1)">直播教程</a></li>
+          <li role="presentation" :class="{'active':state.left == 0}"><a href="javascript:;"
+                                                                         @click="changeLeftState(0)">我的资料</a></li>
+          <li role="presentation" :class="{'active':state.left == 1}"><a href="javascript:;"
+                                                                         @click="changeLeftState(1)">直播教程</a></li>
           <!--<li role="presentation"><a href="javascript:;">修改密码</a></li>-->
           <!--<li role="presentation"><a href="#">我的资料</a></li>-->
         </ul>
@@ -12,9 +14,13 @@
       <div id="id-div-main" class="col-sm-10">
         <div id="id-div-info" class="items-info" v-show="state.left == 0">
           <ul id="id-ul-center" class="nav nav-tabs">
-            <li role="presentation" :class="{'active':state.center == 0}"><a href="javascript:;" @click="changeCenterState(0)">直播间资料</a></li>
-            <li role="presentation" :class="{'active':state.center == 1}"><a href="javascript:;" @click="changeCenterState(1)">修改密码</a></li>
-            <li role="presentation" :class="{'active':state.center == 2}"><a href="javascript:;" @click="changeCenterState(2)">我的资料</a></li>
+            <li role="presentation" :class="{'active':state.center == 0}"><a href="javascript:;"
+                                                                             @click="changeCenterState(0)">直播间资料</a>
+            </li>
+            <li role="presentation" :class="{'active':state.center == 1}"><a href="javascript:;"
+                                                                             @click="changeCenterState(1)">修改密码</a></li>
+            <li role="presentation" :class="{'active':state.center == 2}"><a href="javascript:;"
+                                                                             @click="changeCenterState(2)">我的资料</a></li>
           </ul>
           <form v-show="state.center == 0">
             <label>直播间标题:</label>
@@ -39,13 +45,13 @@
           </form>
           <form class="items-info" v-show="state.center == 1">
             <label>原密码:</label>
-            <input id="id-input-oldPWD" type='password'>
+            <input type='password' v-model="changePassword.oldPassword">
             <br>
             <label>新密码:</label>
-            <input id="id-input-newPWD2" type='password'>
+            <input type='password' v-model="changePassword.newPassword">
             <br>
             <label>再次输入新密码:</label>
-            <input id="id-input-newPWD" type='password'>
+            <input type='password' v-model="changePassword.newPasswordAnain">
             <br>
             <button class="btn btn-primary btn-form" type="button" @click="changePWD">提交</button>
           </form>
@@ -150,26 +156,67 @@
 <script>
   export default{
     data(){
+      var user = JSON.parse(localStorage.getItem('user'));
       return {
-        user: JSON.parse(localStorage.getItem('user')),
+        user: user,
         state: {
           left: 0,
           center: 0
+        },
+        changePassword: {
+          oldPassword: '',
+          newPassword: '',
+          newPasswordAgain: ''
         }
       }
     },
     methods: {
-      updateUserName: function () {
-
-      },
       changePWD: function () {
+        var _this = this;
+        if (_this.changePassword.newPassword != _this.changePassword.newPasswordAgain) {
+          swal({
+            title: "新密码与原密码不能相同！",
+            type: 'warning',
+            timer: 2000,
+            showConfirmButton: true
+          });
+          return;
+        }
+        $.ajax({
+          url: baseUrl + '/updateUserPassword',
+          type: "POST",
+          dataType: "json",
+          data: {
+            userId: _this.user.id,
+            old_password: _this.changePassword.oldPassword,
+            new_password: _this.changePassword.newPassword
+          },
+          success: function (result) {
 
+          }
+        });
       },
       updateUserInfo: function () {
+        $.ajax({
+          url: baseUrl + '/updateUserInfo',
+          type: "POST",
+          dataType: "json",
+          data: {},
+          success: function (result) {
 
+          }
+        });
       },
       updateLiveRoom: function () {
+        $.ajax({
+          url: baseUrl + '/updateLiveRoom',
+          type: "POST",
+          dataType: "json",
+          data: {},
+          success: function (result) {
 
+          }
+        });
       },
       changeLeftState: function (index) {
         this.state.left = index;
@@ -253,10 +300,11 @@
     height: 10rem;
   }
 
-
   .div-course {
+
   img {
     width: 40%;
   }
+
   }
 </style>
