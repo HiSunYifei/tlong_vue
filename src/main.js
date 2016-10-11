@@ -14,7 +14,10 @@ router.map({
   '/userInfo': {
     component: require('./components/UserInfo.vue')
   },
-  '/^[1-9][0-9]*$': {
+  /*'/^[1-9][0-9]*$': {
+    component: require('./components/LiveRoom.vue')
+  }*/
+  '/:id(\\d+)': {
     component: require('./components/LiveRoom.vue')
   }
 });

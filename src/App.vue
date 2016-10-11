@@ -6,6 +6,11 @@
 <script>
   import myHeader from './components/Header'
   export default {
+    init:function () {
+      if (localStorage.getItem('user') == 'undefined'||localStorage.getItem('user')=="[object Object]") {
+        localStorage.clear();
+      }
+    },
     components: {
       myHeader
     }

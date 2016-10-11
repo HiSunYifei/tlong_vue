@@ -26,22 +26,6 @@
   </div>
 </template>
 <script>
-  if (localStorage.getItem('user') == 'undefined') {
-    localStorage.clear();
-  }
-
-
-  function getQueryString(name) {
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-    var r = window.location.search.substr(1).match(reg);  //这里返回找到正则的匹配
-
-    if (r != null) {
-      return unescape(r[2]);    //这里返回对应的值
-
-    }
-    return null;
-  }
-
   export default{
     ready: function () {
       var _this = this;

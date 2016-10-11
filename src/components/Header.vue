@@ -88,7 +88,7 @@
     },
     methods: {
       login:function () {
-        var _this = this
+        var _this = this;
         $.ajax({
             url: baseUrl+'/login',
             type: "POST",
@@ -114,7 +114,7 @@
           });
       },
       register:function () {
-        var _this = this
+        var _this = this;
 
         if (!/^[1][\d]{10}$/.test(_this.register_username)) {
           swal("手机号码非法！", "", "warning");
