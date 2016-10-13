@@ -59,10 +59,10 @@
           <button class="btn btn-primary btn-form" type="button" @click="changePWD">提交</button>
         </form>
         <form class="items-info" enctype="multipart/form-data" v-show="state.center == 2">
-          <img id="id-img-avatar" alt="头像" style="max-height: 150px">
+          <img id="id-img-avatar" alt="头像" style="max-height: 150px" :src="user.avatar">
           <br>
           <label>头像:</label>
-          <input type="file" id="id-avatar">
+          <input type="file" id="id-input-avatar">
           <br>
           <label>我的昵称:</label>
           <input type='text' v-model="user.username" placeholder="忘了爱">
@@ -81,10 +81,10 @@
           <br>
           <label style="margin-top: 0.8rem">性别:</label>
           <label class="radio-inline">
-            <input type="radio" value="1" v-model="sex"> 男
+            <input type="radio" value="1" v-model="user.sex"> 男
           </label>
           <label class="radio-inline">
-            <input type="radio" value="2" v-model="sex"> 女
+            <input type="radio" value="2" v-model="user.sex"> 女
           </label>
           <br>
           <button class="btn btn-primary btn-form" type="button" @click="updateUserInfo">提交</button>
@@ -92,10 +92,14 @@
       </div>
       <div id="id-div-course" v-show="state.left == 1">
         <ul id="id-ul-center2" class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="javascript:;" @click="changeCenterState(0)">直播软件</a></li>
-          <li role="presentation"><a href="javascript:;" @click="changeCenterState(1)">基本设置</a></li>
-          <li role="presentation"><a href="javascript:;" @click="changeCenterState(2)">内容设置</a></li>
-          <li role="presentation"><a href="javascript:;" @click="changeCenterState(3)">开始直播</a></li>
+          <li role="presentation" :class="{'active':state.center == 0}"><a href="javascript:;"
+                                                                           @click="changeCenterState(0)">直播软件</a></li>
+          <li role="presentation" :class="{'active':state.center == 1}"><a href="javascript:;"
+                                                                           @click="changeCenterState(1)">基本设置</a></li>
+          <li role="presentation" :class="{'active':state.center == 2}"><a href="javascript:;"
+                                                                           @click="changeCenterState(2)">内容设置</a></li>
+          <li role="presentation" :class="{'active':state.center == 3}"><a href="javascript:;"
+                                                                           @click="changeCenterState(3)">开始直播</a></li>
         </ul>
         <div class="div-course" v-show="state.center == 0">
           <h3>直播软件</h3>
@@ -156,6 +160,7 @@
 <script>
   export default{
     data(){
+
       var user = JSON.parse(localStorage.getItem('user'));
       return {
         user: user,
@@ -171,13 +176,17 @@
       }
     },
     init: function () {
+
       if (!localStorage.getItem('user')) {
         location.replace('/');
       }
+      $("#id-input-avatar").uploadPreview({
+        Img: "id-img-avatar",
+        Height: 150
+      });
     },
     methods: {
       changePWD: function () {
-
         var _this = this;
         if (_this.changePassword.newPassword != _this.changePassword.oldPassword) {
           swal({
@@ -218,34 +227,6 @@
           }
         });
       },
-      updateUserInfo: function () {
-        var _this = this;
-        $.ajax(baseUrl + '/updateUserInfo', {
-          data: {
-            username: _this.user.username,
-            beGoodAt: _this.user.beGoodAt,
-            workYear: _this.user.workYear,
-            company: _this.user.company,
-            email: _this.user.email,
-            sex: _this.user.sex
-          },
-          dataType: 'json',
-          files: $("#id-avatar"),
-          iframe: true,
-          processData: false,
-          success: function (result) {
-            if (result.status == 1) {
-              _this.user = result.user;
-              localStorage.setItem('user', JSON.stringify(result.user));
-            }
-            swal({
-              title: result.message,
-              timer: 2000,
-              showConfirmButton: true
-            });
-          }
-        });
-      },
       updateLiveRoom: function () {
         var _this = this;
         $.ajax({
@@ -270,6 +251,44 @@
           }
         })
         ;
+      },
+      updateUserInfo: function () {
+        var _this = this;
+        return;
+        swal({
+          title: "正在更新",
+          type: "info",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+          showConfirmButton: false
+        });
+
+        $.ajax(baseUrl + '/updateUserInfo', {
+          data: {
+            username: _this.user.username,
+            beGoodAt: _this.user.beGoodAt,
+            workYear: _this.user.workYear,
+            company: _this.user.company,
+            email: _this.user.email,
+            sex: _this.user.sex,
+            userId: _this.user.userId
+          },
+          dataType: 'json',
+          files: $("#id-input-avatar"),
+          iframe: true,
+          processData: false,
+          success: function (result) {
+            if (result.status == 1) {
+              _this.user = result.user;
+              localStorage.setItem('user', JSON.stringify(result.user));
+            }
+            swal({
+              title: result.message,
+              timer: 2000,
+              showConfirmButton: true
+            });
+          }
+        });
       },
       changeLeftState: function (index) {
         this.state.left = index;

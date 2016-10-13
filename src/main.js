@@ -17,8 +17,9 @@ router.map({
   /*'/^[1-9][0-9]*$': {
     component: require('./components/LiveRoom.vue')
   }*/
-  '/:id(\\d+)': {
-    component: require('./components/LiveRoom.vue')
+  '/:id': {
+    component: require('./components/LiveRoom.vue'),
+    name:'liveRoom'
   }
 });
 router.start(App, 'app');

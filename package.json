@@ -15,7 +15,8 @@
     "style-loader": "^0.13.1",
     "vue": "^1.0.21",
     "vue-resource": "^1.0.3",
-    "vue-router": "^0.7.13"
+    "vue-router": "^0.7.13",
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
