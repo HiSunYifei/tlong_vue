@@ -20,7 +20,7 @@
               {{user.username}}<span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a v-link="{path:'/userInfo'}" target="_blank">个人信息</a></li>
+              <li><a v-link="{path:'./userInfo'}" target="_blank">个人信息</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="javascript:void(0)" @click="logout">注销</a></li>
             </ul>

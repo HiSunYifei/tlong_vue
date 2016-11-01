@@ -6,7 +6,7 @@ import Router from 'vue-router'
 Vue.use(Router);
 
 //Router
-var router = new Router({history: true});
+var router = new Router({history: true,base:''});
 router.map({
   '*': {
     component: require('./components/Index.vue')
